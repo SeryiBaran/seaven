@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seaven - Search engine for people</title>
+
+    <link rel="stylesheet" href="data-url:./7.css" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        min-height: 100vh;
+      }
+      body {
+        display: flex;
+        flex-grow: 1;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Pixelated MS Sans Serif', Arial;
+        user-select: none;
+      }
+      .container {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        background-image: url('data-url:./assets/bg.webp');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      .window {
+        position: absolute;
+        max-width: 300px;
+      }
+      .window,
+      .window * {
+        box-sizing: content-box;
+      }
+      .window-body {
+        height: 100%;
+      }
+      form {
+        display: flex;
+        height: 32px;
+        gap: 8px;
+      }
+      form input {
+        flex-grow: 1;
+        height: auto !important;
+      }
+      p {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="window glass active" id="searchWindow">
+        <div class="title-bar" id="searchWindowheader">
+          <div class="title-bar-text">Seaven - Search engine for people.</div>
+          <div class="title-bar-controls">
+            <button aria-label="Maximize" id="maximize"></button>
+            <button aria-label="Close" id="close"></button>
+          </div>
+        </div>
+        <div class="window-body has-space">
+          <p>Seaven - Search engine for people. Plain electronic normal instrument for searching - PENIS.</p>
+          <form action="https://google.com/search" method="get">
+            <input type="text" name="q" autofocus placeholder="Your search query" />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      const searchWindow = document.querySelector('#searchWindow')
+      const maximizeBtn = document.querySelector('#maximize')
+      const closeBtn = document.querySelector('#close')
+      let fullscreen = false
+
+      maximizeBtn.addEventListener('click', () => {
+        if (!fullscreen) {
+          document.querySelector('.container').requestFullscreen()
+          fullscreen = true
+        } else {
+          document.exitFullscreen()
+          fullscreen = false
+        }
+
+        maximizeBtn.setAttribute('aria-label', fullscreen ? 'Restore' : 'Maximize')
+      })
+
+      closeBtn.addEventListener('click', () => {
+        searchWindow.outerHTML = ''
+      })
+
+      dragElement(searchWindow)
+
+      function dragElement(elmnt) {
+        var pos1 = 0,
+          pos2 = 0,
+          pos3 = 0,
+          pos4 = 0
+        if (document.getElementById(elmnt.id + 'header')) {
+          // if present, the header is where you move the DIV from:
+          document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown
+        } else {
+          // otherwise, move the DIV from anywhere inside the DIV:
+          elmnt.onmousedown = dragMouseDown
+        }
+
+        function dragMouseDown(e) {
+          e = e || window.event
+          e.preventDefault()
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX
+          pos4 = e.clientY
+          document.onmouseup = closeDragElement
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag
+        }
+
+        function elementDrag(e) {
+          e = e || window.event
+          e.preventDefault()
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX
+          pos2 = pos4 - e.clientY
+          pos3 = e.clientX
+          pos4 = e.clientY
+          // set the element's new position:
+          elmnt.style.top = elmnt.offsetTop - pos2 + 'px'
+          elmnt.style.left = elmnt.offsetLeft - pos1 + 'px'
+        }
+
+        function closeDragElement() {
+          // stop moving when mouse button is released:
+          document.onmouseup = null
+          document.onmousemove = null
+        }
+      }
+    </script>
+  </body>
+</html>
