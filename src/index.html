@@ -19,7 +19,7 @@
         flex-grow: 1;
         min-height: 100vh;
         margin: 0;
-        font-family: 'Pixelated MS Sans Serif', Arial;
+        font-family: "Pixelated MS Sans Serif", Arial;
         user-select: none;
       }
       .container {
@@ -28,7 +28,7 @@
         align-items: center;
         justify-content: center;
         padding: 8px;
-        background-image: url('data-url:./assets/bg.webp');
+        background-image: url("data-url:./assets/bg.webp");
         background-position: center;
         background-size: cover;
         background-attachment: fixed;
@@ -52,6 +52,7 @@
       form input {
         flex-grow: 1;
         height: auto !important;
+        outline: 0;
       }
       p {
         margin-top: 0;
@@ -69,79 +70,91 @@
           </div>
         </div>
         <div class="window-body has-space">
-          <p>Seaven - Search engine for people. Plain electronic normal instrument for searching - PENIS.</p>
+          <p>
+            Seaven - Search engine for people. Plain electronic normal
+            instrument for searching - PENIS.
+          </p>
           <form action="https://google.com/search" method="get">
-            <input type="text" name="q" autofocus placeholder="Your search query" />
+            <input
+              type="text"
+              name="q"
+              autofocus
+              placeholder="Your search query"
+            />
             <button type="submit">Search</button>
           </form>
         </div>
       </div>
     </div>
     <script>
-      const searchWindow = document.querySelector('#searchWindow')
-      const maximizeBtn = document.querySelector('#maximize')
-      const closeBtn = document.querySelector('#close')
-      let fullscreen = false
+      const searchWindow = document.querySelector("#searchWindow");
+      const maximizeBtn = document.querySelector("#maximize");
+      const closeBtn = document.querySelector("#close");
+      let fullscreen = false;
 
-      maximizeBtn.addEventListener('click', () => {
+      maximizeBtn.addEventListener("click", () => {
         if (!fullscreen) {
-          document.querySelector('.container').requestFullscreen()
-          fullscreen = true
+          document.querySelector(".container").requestFullscreen();
+          fullscreen = true;
         } else {
-          document.exitFullscreen()
-          fullscreen = false
+          document.exitFullscreen();
+          fullscreen = false;
         }
 
-        maximizeBtn.setAttribute('aria-label', fullscreen ? 'Restore' : 'Maximize')
-      })
+        maximizeBtn.setAttribute(
+          "aria-label",
+          fullscreen ? "Restore" : "Maximize"
+        );
+      });
 
-      closeBtn.addEventListener('click', () => {
-        searchWindow.outerHTML = ''
-      })
+      closeBtn.addEventListener("click", () => {
+        searchWindow.outerHTML = "";
+      });
 
-      dragElement(searchWindow)
+      dragElement(searchWindow);
 
       function dragElement(elmnt) {
         var pos1 = 0,
           pos2 = 0,
           pos3 = 0,
-          pos4 = 0
-        if (document.getElementById(elmnt.id + 'header')) {
+          pos4 = 0;
+        if (document.getElementById(elmnt.id + "header")) {
           // if present, the header is where you move the DIV from:
-          document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown
+          document.getElementById(elmnt.id + "header").onmousedown =
+            dragMouseDown;
         } else {
           // otherwise, move the DIV from anywhere inside the DIV:
-          elmnt.onmousedown = dragMouseDown
+          elmnt.onmousedown = dragMouseDown;
         }
 
         function dragMouseDown(e) {
-          e = e || window.event
-          e.preventDefault()
+          e = e || window.event;
+          e.preventDefault();
           // get the mouse cursor position at startup:
-          pos3 = e.clientX
-          pos4 = e.clientY
-          document.onmouseup = closeDragElement
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
           // call a function whenever the cursor moves:
-          document.onmousemove = elementDrag
+          document.onmousemove = elementDrag;
         }
 
         function elementDrag(e) {
-          e = e || window.event
-          e.preventDefault()
+          e = e || window.event;
+          e.preventDefault();
           // calculate the new cursor position:
-          pos1 = pos3 - e.clientX
-          pos2 = pos4 - e.clientY
-          pos3 = e.clientX
-          pos4 = e.clientY
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
           // set the element's new position:
-          elmnt.style.top = elmnt.offsetTop - pos2 + 'px'
-          elmnt.style.left = elmnt.offsetLeft - pos1 + 'px'
+          elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+          elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
         }
 
         function closeDragElement() {
           // stop moving when mouse button is released:
-          document.onmouseup = null
-          document.onmousemove = null
+          document.onmouseup = null;
+          document.onmousemove = null;
         }
       }
     </script>
